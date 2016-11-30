@@ -3,6 +3,8 @@
   yum:
     name: "http://rpms.remirepo.net/enterprise/remi-release-7.rpm"
     state: present
+    disable_gpg_check: yes
+    enablerepo: yes
 
 name: Install remi repo.
      yum:
