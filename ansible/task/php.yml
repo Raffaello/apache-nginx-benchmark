@@ -1,0 +1,11 @@
+---
+- name: Add yum repository
+  yum_repository:
+    name: remi
+    description: REMI Release 7
+    baseurl: http://rpms.remirepo.net/enterprise/remi-release-7
+    gpgcheck: no
+    enabled: yes
+
+- name: installing php7.1
+  yum: name=php71 state=latest
