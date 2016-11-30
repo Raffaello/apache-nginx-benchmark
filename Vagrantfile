@@ -6,17 +6,13 @@ Vagrant.configure("2") do |config|
   config.vm.box_check_update = true
   config.vm.provider "virtualbox" do |vb|
      vb.memory = "1024"
-     vb.cpu = 2
+     vb.cpus   = 2
   end
 
-  config.vm.synced_folder ".",
-    "/home/vagrant/apache-nginx-benchmark",
-    type: "nfs".vm.synced_folder ".",
-    "/home/vagrant/apache-nginx-benchmark", type: "nfs"
-
+  config.vm.synced_folder ".", "/home/vagrant/apache-nginx-benchmark", type: "nfs"
   config.ssh.insert_key = false
-  config.vm.hostname = "benchmark.dev"
-  config.vm.network "private_netwrok", ip: "10.10.10.10"
+  config.vm.hostname    = "benchmark.dev"
+  config.vm.network "private_network", ip: "10.10.10.10"
 
   config.vm.provision "shell", inline: <<-SHELL
     yum -y upgrade
