@@ -1,0 +1,8 @@
+---
+- name: "web benhmark apache & nginx machine"
+  hosts: "benchmark.dev"
+  tasks:
+    - shell: echo "ciao!"
+    - include: "task/apache.yml"
+
+
