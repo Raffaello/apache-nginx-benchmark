@@ -4,8 +4,10 @@
 Vagrant.configure("2") do |config|
   config.vm.box = "centos/7"
   config.vm.box_check_update = true
+
   config.vbguest.no_install  = true if defined? config.vbguest
   config.vbguest.auto_update = false if defined? config.vbguest
+  config.vbguest.no_remote   = true if defined? config.vbguest
 
   config.vm.provider "virtualbox" do |vb|
      vb.memory = "1024"
