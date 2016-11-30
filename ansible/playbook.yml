@@ -1,6 +1,7 @@
 ---
 - name: web benchmark apache & nginx machine
   hosts: all
+  became: true
   tasks:
     - shell: echo "ciao!"
     - include: task/apache.yml

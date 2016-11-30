@@ -1,6 +1,4 @@
 ---
-- name: became root
-  became: true
 - name: "install apache2.x"
   yum: name=httpd state=latest
 - name: "stop apache2 and disable starting at boot time"

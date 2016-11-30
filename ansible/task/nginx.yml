@@ -1,6 +1,4 @@
 ---
-- name: became root
-  became: true
 - name: "install nginx"
   yum: name=nginx state=latest
 - name: "stop nginx and disable starting at boot time"
