@@ -6,10 +6,6 @@
     disable_gpg_check: yes
     enablerepo: yes
 
-name: Install remi repo.
-     yum:
-       name: http://rpms.famillecollet.com/enterprise/remi-release-6.rpm
-       state: present
 #  yum_repository:
 #    name: remi
 #    description: REMI Release 7
