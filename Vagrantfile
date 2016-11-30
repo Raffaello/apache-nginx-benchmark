@@ -19,10 +19,13 @@ Vagrant.configure("2") do |config|
 
   config.vm.provision "shell", inline: <<-SHELL
     yum -y upgrade
-    sudo rpm -iUvh http://dl.fedoraproject.org/pub/epel/7/x86_64/e/epel-release-7-8.noarch.rpm
+    sudo rpm -iUvh --nosignature http://dl.fedoraproject.org/pub/epel/7/x86_64/e/epel-release-7-8.noarch.rpm
     yum -y update
-    sudo yum -y install ansible
+    yum -y install ansible
+    reboot
   SHELL
+
+  config.vm.provision :reload
 
   config.vm.provision "ansible_local" do |ansible|
     ansible.install  = false
