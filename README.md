@@ -1,4 +1,4 @@
-# [WIP] Apche & NGINX benchmark
+# [WIP] Apache <=> NGINX benchmark
 
 ## Requirements
 
