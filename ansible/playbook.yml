@@ -3,7 +3,6 @@
   hosts: all
   become: true
   tasks:
-    - shell: echo "ciao!"
     - include: task/apache.yml
     - include: task/nginx.yml
 
