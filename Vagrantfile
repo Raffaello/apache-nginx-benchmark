@@ -21,9 +21,9 @@ Vagrant.configure("2") do |config|
 
   config.vm.provision "shell", inline: <<-SHELL
     yum -y upgrade
-    sudo rpm -iUvh --nosignature --nogpgcheck http://dl.fedoraproject.org/pub/epel/7/x86_64/e/epel-release-7-8.noarch.rpm
+    sudo rpm -iUvh http://dl.fedoraproject.org/pub/epel/7/x86_64/e/epel-release-7-8.noarch.rpm
     yum -y update
-    yum -y install ansible
+    yum -y --nogpgcheck install ansible
     #ansible-galaxy install geerlingguy.nginx
     #ansible-galaxy install geerlingguy.apache-php-fpm
   SHELL
