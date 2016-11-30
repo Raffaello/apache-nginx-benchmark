@@ -4,6 +4,10 @@
 Vagrant.configure("2") do |config|
   config.vm.box = "centos/7"
   config.vm.box_check_update = true
+
+
+  config.vbguest.auto_update = false if defined? config.vbguest
+
   config.vm.provider "virtualbox" do |vb|
      vb.memory = "1024"
      vb.cpus   = 2
@@ -18,11 +22,11 @@ Vagrant.configure("2") do |config|
     yum -y upgrade
     sudo rpm -iUvh http://dl.fedoraproject.org/pub/epel/7/x86_64/e/epel-release-7-8.noarch.rpm
     yum -y update
-    #sudo yum -y install ansible
+    sudo yum -y install ansible
   SHELL
 
   config.vm.provision "ansible_local" do |ansible|
-    ansible.install  = true
+    ansible.install  = false
     ansible.playbook = "ansible/playbook.yml"
     ansible.verbose  = true
   end
