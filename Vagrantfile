@@ -24,7 +24,8 @@ Vagrant.configure("2") do |config|
     sudo rpm -iUvh --nosignature http://dl.fedoraproject.org/pub/epel/7/x86_64/e/epel-release-7-8.noarch.rpm
     yum -y update
     yum -y install ansible
-    reboot
+    #ansible-galaxy install geerlingguy.nginx
+    #ansible-galaxy install geerlingguy.apache-php-fpm
   SHELL
 
   config.vm.provision :reload
