@@ -12,5 +12,5 @@
 - name: installing php7.1
   yum: name=php71 state=latest
 
-- name: installing php-71-php-fpm
-  yum:
+- name: installing php71-php-fpm
+  yum: name=php71-php-fpm
