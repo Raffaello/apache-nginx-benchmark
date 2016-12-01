@@ -8,7 +8,7 @@
     <?php
     echo '<h3>PHP for loops to make a silly test</h3>';
     for($i = 0; $i < 100; $i++) {
-        echo "<p> Run = ${$i}</p>";
+        echo "<p> Run = {$i}</p>";
         for($j=0; $j<1000; $j++) {
             rand();
             $res = bcsqrt(($j * $i + $j + 1 + $i / $j / $i)+1);

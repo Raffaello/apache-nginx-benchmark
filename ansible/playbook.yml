@@ -6,5 +6,6 @@
     - include: task/apache.yml
     - include: task/nginx.yml
     - include: task/php.yml
+    - include: task/swap.yml
 
 
