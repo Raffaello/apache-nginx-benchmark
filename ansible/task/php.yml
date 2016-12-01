@@ -14,3 +14,6 @@
 
 - name: installing php71-php-fpm
   yum: name=php71-php-fpm
+
+- name: installing php71-php-bcmath
+  yum: name-php71-php-bcmath
