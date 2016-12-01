@@ -1,5 +1,25 @@
 ---
 - name: "install apache2.x"
   yum: name=httpd state=latest
+
 - name: "stop apache2 and disable starting at boot time"
   service: name=httpd state=stopped enabled=no
+
+- name: apache2 disable mpm_worker
+  lineinfile:
+    dest: /etc/httpd/conf.modules.d/00-mpm.conf
+    regexp: "^LoadModule mpm_prefork_module"
+    line: "#"
+    state: present
+
+- name: apache2 enable mpm_event
+  lineinfile:
+    dest: /etc/httpd/conf.modules.d/00-mpm.conf
+    regexp: "^#LoadModule mpm_event_module"
+    line: "LoadModule mpm_event_module modules/mod_mpm_event.so"
+    state: present
+
+- name: create abtest.dev vhost file
+  template:
+    src: ../httpd.conf/00-abtest.conf
+    dest: /etc/httpd/conf.d/00-abtest.conf

@@ -4,12 +4,9 @@
     dest: /etc/fstab
     regexp: '^/[\S]+\s+none\s+swap '
     state: absent
-  when: common_swap_remove_current and
-        common_swap_check_recreate | bool
-  become: yes
+  #become: yes
 
 - name: swap - disable swap
   command: swapoff --all
   ignore_errors: yes
-  when: common_swap_check_recreate | bool
-  become: yes
+  #become: yes

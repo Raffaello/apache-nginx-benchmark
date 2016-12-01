@@ -8,4 +8,8 @@
     - include: task/php.yml
     - include: task/swap.yml
 
+#  handlers:
+#    - name: restart apache2
+#      service: name=apache2 state=restarted
+
 
