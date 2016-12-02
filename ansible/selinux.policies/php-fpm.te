@@ -1,0 +1,10 @@
+module php-fpm 1.0;
+
+require {
+	type httpd_t;
+	type default_t;
+	class file { read open };
+}
+
+#============= httpd_t ==============
+allow httpd_t default_t:file { read open };

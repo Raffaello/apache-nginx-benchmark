@@ -17,3 +17,6 @@
 
 - name: installing php71-php-bcmath
   yum: name=php71-php-bcmath state=latest
+
+# @TODO setting to use UNIX socket instead of TCP
+# @see https://www.servermule.com.au/help/linux/configure-nginx-php-fpm-socket-centos/
