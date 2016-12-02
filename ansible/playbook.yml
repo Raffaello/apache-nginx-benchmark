@@ -3,6 +3,10 @@
   hosts: all
   become: true
   tasks:
+    - name: vim
+      yum: name=vim-enanched state=latest
+    - name: htop
+      yum: name=htop state=latest
     - include: task/apache.yml
     - include: task/nginx.yml
     - include: task/php.yml
