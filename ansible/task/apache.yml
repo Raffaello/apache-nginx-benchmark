@@ -9,7 +9,7 @@
   lineinfile:
     dest: /etc/httpd/conf.modules.d/00-mpm.conf
     regexp: "^LoadModule mpm_prefork_module"
-    line: "#"
+    line: "#LoadModule mpm_prefork_module"
     state: present
 
 - name: apache2 enable mpm_event
