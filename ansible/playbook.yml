@@ -4,7 +4,7 @@
   become: true
   tasks:
     - name: vim
-      yum: name=vim-enanched state=latest
+      yum: name=vim state=latest
     - name: htop
       yum: name=htop state=latest
     - include: task/apache.yml
