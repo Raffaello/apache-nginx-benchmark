@@ -1,11 +1,11 @@
 #!/usr/bin/env bash
 
-cp /etc/opt/remi/php71/php-fpm.d/www.conf.nginx /etc/opt/remi/php71/php-fpm.d/www.conf
+sudo cp /etc/opt/remi/php71/php-fpm.d/www.conf.nginx /etc/opt/remi/php71/php-fpm.d/www.conf
 sudo service nginx stop
 sudo service php71-php-fpm restart
 sudo service httpd start
 
-#sudo setenfornce permissive
+sudo setenforce permissive
 
 sudo chmod 777 /vagrant/src/index.*
 
