@@ -13,7 +13,7 @@
     state: yes
     persistent: yes
 
- setsebool -P httpd_read_user_content 1
+ #setsebool -P httpd_read_user_content 1
 - name: selinux httpd read user content
   seboolean:
     name: httpd_read_user_content
