@@ -20,4 +20,5 @@ ab -n 100 -c 100 abtest.dev/index.php > ${LOGDIR}/nginx-n100-c100.log
 ab -n 1000 -c 100 abtest.dev/index.php > ${LOGDIR}/nginx-n1000-c100.log
 ab -n 10000 -c 100 abtest.dev/index.php > ${LOGDIR}/nginx-n10000-c100.log
 ab -n 10000 -c 1000 abtest.dev/index.php > ${LOGDIR}/nginx-n10000-c1000.log
+ab -n 100000 -c 1000 abtest.dev/index.php > ${LOGDIR}/nginx-n100000-c1000.log
 
