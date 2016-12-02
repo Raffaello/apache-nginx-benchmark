@@ -25,5 +25,10 @@
     dest: /etc/httpd/conf.d/00-abtest.conf
 
 # @TODO disable all not required module and configuring to have better performance
+- name: delete 01-cgi.conf (apche)
+  shell: rm /etc/httpd/conf.module.d/01-cgi.conf
 
-# todo remove file module.d/01-cgi.conf
+- name: delete mod lua conf (apache)
+  shell: rm /etc/htpd/conf.module.d/00-lua.conf
+
+
