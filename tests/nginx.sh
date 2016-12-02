@@ -4,7 +4,7 @@ sudo service httpd stop
 sudo service php71-php-fpm restart
 sudo service nginx start
 
-sudo setenfornce permissive
+sudo setenforce permissive
 
 sudo ln -s /vagrant/src/* /var/www/html
 sudo chmod 777 /vagrant/src/index.*
