@@ -11,6 +11,7 @@
     - include: task/nginx.yml
     - include: task/php.yml
     - include: task/swap.yml
+    - include: task/selinux.yml
 
 #  handlers:
 #    - name: restart apache2
