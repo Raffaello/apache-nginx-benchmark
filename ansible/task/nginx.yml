@@ -10,3 +10,9 @@
     dest: /etc/nginx/conf.d/00-abtest.conf
 
 # @TODO disable all not required module and configuring to have better performance
+- name: configure nginx to use apache group/user (to make easily working php-fpm with same config)
+  lineinfile:
+    dest: //etc/nginx/nginx.conf
+    regexp: 'user nginx;'
+    line: 'user apache;'
+    state: present

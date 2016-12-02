@@ -25,3 +25,5 @@
     dest: /etc/httpd/conf.d/00-abtest.conf
 
 # @TODO disable all not required module and configuring to have better performance
+
+# todo remove file module.d/01-cgi.conf

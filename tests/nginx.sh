@@ -1,5 +1,6 @@
 #!/usr/bin/env bash
 
+cp /etc/opt/remi/php71/php-fpm.d/www.conf.nginx /etc/opt/remi/php71/php-fpm.d/www.conf
 sudo service httpd stop
 sudo service php71-php-fpm restart
 sudo service nginx start
