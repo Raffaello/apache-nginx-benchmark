@@ -8,13 +8,13 @@
     <?php
     echo '<h3>PHP for loops to make a silly test</h3>';
     for($i = 0; $i < 100; $i++) {
-        echo "<p> Run = {$i} --- Result = ";
+        echo "<p> Run = {$i} --- Results = </p>";
         for($j=0; $j<1000; $j++) {
             rand();
             $res = bcsqrt(($j * $i + $j + 1 + $i / $j / $i)+1);
             rand();
             $res = bcpow($res, $res);
-            echo "{$res} </p>";
+            echo "<p>{$i}:{$j}= {$res}</p>";
         }
     }
     ?>
