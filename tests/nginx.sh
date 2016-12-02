@@ -10,7 +10,7 @@ sudo setenforce permissive
 sudo chmod 777 /vagrant/src/index.*
 
 LOGDIR=/vagrant/tests/logs
-ab -n 1 -c 4 abtest.dev/index.php > ${LOGDIR}/nginx-n1-c4.log
+ab -n 1 abtest.dev/index.php > ${LOGDIR}/nginx-n1.log
 ab -n 4 -c 2 abtest.dev/index.php > ${LOGDIR}/nginx-n4-c2.log
 ab -n 4 -c 4 abtest.dev/index.php > ${LOGDIR}/nginx-n4-c4.log
 ab -n 10 -c 4 abtest.dev/index.php > ${LOGDIR}/nginx-n10-c4.log

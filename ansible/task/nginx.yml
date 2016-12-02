@@ -16,3 +16,4 @@
     regexp: 'user nginx;'
     line: 'user apache;'
     state: present
+    when: not present
