@@ -25,12 +25,16 @@
     dest: /etc/httpd/conf.d/00-abtest.conf
 
 # @TODO disable all not required module and configuring to have better performance
-- name: delete 01-cgi.conf (apche)
-  shell: rm /etc/httpd/conf.modules.d/01-cgi.conf
-  ignore_errors: true
+- name: delete 01-cgi.conf (apache)
+  file:
+    path: /etc/httpd/conf.modules.d/01-cgi.conf
+    state: absent
+  #ignore_errors: true
 
 - name: delete mod lua conf (apache)
-  shell: rm /etc/httpd/conf.modules.d/00-lua.conf
-  ignore_errors: true
+  file:
+    path: rm /etc/httpd/conf.modules.d/00-lua.conf
+    state: absent
+  #ignore_errors: true
 
 

@@ -4,7 +4,7 @@
 
 #semanage port -a -t http_port_t -p tcp 9000
 - name: seport 80 allowed to connect 9000
-  seport: ports=9000 proto=tcp setype=http_port_t state=present persistent=yes
+  seport: ports=9000 proto=tcp setype=http_port_t state=present
 
 # Set (httpd_can_network_connect) flag on and keep it persistent across reboots
 - name: selinux networn connect bool config
@@ -18,7 +18,7 @@
   seboolean:
     name: httpd_read_user_content
     state: yes
-    persisten: yes
+    #persisten: yes
 
 - name: selinux permissive temporary ansible task
   selinux: policy=targeted state=permissive
