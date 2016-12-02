@@ -3,3 +3,8 @@
   yum: name=nginx state=latest
 - name: "stop nginx and disable starting at boot time"
   service: name=nginx state=stopped enabled=no
+
+- name: create abtest.dev vhost file
+  template:
+    src: ../nginx.conf/00-abtest.conf
+    dest: /etc/nginx/conf.d/00-abtest.conf
