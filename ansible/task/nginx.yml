@@ -1,7 +1,7 @@
 ---
-- name: "test for nginx.conf user present in file"
-  shell: grep -e "user nginx;" /etc/nginx/nginx.conf -c
-  register: nginx.conf_user_test
+#- name: "test for nginx.conf user present in file"
+#  shell: grep -e "user nginx;" /etc/nginx/nginx.conf -c
+#  register: nginx.conf_user_test
 
 - name: "install nginx"
   yum: name=nginx state=latest
