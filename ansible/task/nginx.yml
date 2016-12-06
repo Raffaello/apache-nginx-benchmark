@@ -1,4 +1,8 @@
 ---
+- name: "test for nginx.conf user present in file"
+  shell: grep -e "user nginx;" /etc/nginx/nginx.conf -c
+  register: nginx.conf_user_test
+
 - name: "install nginx"
   yum: name=nginx state=latest
 - name: "stop nginx and disable starting at boot time"
@@ -16,4 +20,5 @@
     regexp: 'user nginx;'
     line: 'user apache;'
     state: present
-    when: not present
+#    when: nginx.conf_user_test.stdout == "1"
+    backrefs: yes
