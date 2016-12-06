@@ -20,7 +20,7 @@ Vagrant.configure("2") do |config|
   end
 
   config.vm.synced_folder ".", "/home/vagrant/apache-nginx-benchmark", type: "nfs",
-    :linux__nfs_options => ['rw', 'no_root_squash']
+    :linux__nfs_options => ['rw','no_subtree_check','all_squash','async']
   config.ssh.insert_key = false
   config.vm.hostname    = "benchmark.dev"
   config.vm.network "private_network", ip: "10.10.10.10"
