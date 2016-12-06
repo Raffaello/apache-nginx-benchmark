@@ -19,7 +19,7 @@ Vagrant.configure("2") do |config|
      vb.cpus   = 2
   end
 
-  config.vm.synced_folder ".", "/home/vagrant/apache-nginx-benchmark", type: "nfs"
+  config.vm.synced_folder ".", "/home/vagrant/apache-nginx-benchmark", type: "nfs", :linux__nfs_options => ['rw']
   config.ssh.insert_key = false
   config.vm.hostname    = "benchmark.dev"
   config.vm.network "private_network", ip: "10.10.10.10"
