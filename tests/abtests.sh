@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-echo -n "starting test..."
+echo -n "starting test:"
 cd /vagrant/tests
 #LOGDIR=/vagrant/tests/logs
 echo -n "."
