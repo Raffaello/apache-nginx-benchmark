@@ -18,7 +18,7 @@
   seboolean:
     name: httpd_read_user_content
     state: yes
-    #persisten: yes
+    persistent: yes
 
 - name: selinux permissive temporary ansible task
-  selinux: policy=targeted state=permissive
+  selinux: policy=targeted state=disabled
