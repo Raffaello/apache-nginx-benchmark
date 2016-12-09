@@ -1,5 +1,5 @@
 ---
 - name: Install R packages.
-#  yum:
-#    name: "
-#    state: present
+  yum:
+    name: R
+    state: present

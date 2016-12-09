@@ -33,7 +33,7 @@
 
 - name: delete mod lua conf (apache)
   file:
-    path: rm /etc/httpd/conf.modules.d/00-lua.conf
+    path: /etc/httpd/conf.modules.d/00-lua.conf
     state: absent
   #ignore_errors: true
 
