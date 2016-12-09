@@ -12,7 +12,7 @@
     - include: task/php.yml
     - include: task/swap.yml
     - include: task/selinux.yml
-    #- include: task/R.yml
+    - include: task/R.yml
 
 #  handlers:
 #    - name: restart apache2
