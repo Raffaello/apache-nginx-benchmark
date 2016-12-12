@@ -49,4 +49,3 @@ for (cmd in cmds) {
     out <- system(command=cmd)
     print(out)
 }
-
