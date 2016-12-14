@@ -110,8 +110,21 @@ print (g_range)
 barplot(reqFailedCmp, main=mainTitle, col=cols, beside = T, names.arg=paste(paste('n',tests$n, sep=''), paste('c',tests$c, sep=''), sep='-'), las=2) #axes = F, ann = F)
 dt <- dim(tests)
 box()
-legend("topleft", webServerNames, cex=0.6,  bty="n", fill=cols);
+legend("topleft", webServerNames, bty="n", fill=cols);
 kable(reqFailedCmp)
+```
+
+```{r totReqFailed, include=T, echo=F}
+percentageTotReqFailed <- c(
+  (sum(reqFailedCmp[1,], na.rm=T)/sum(n)*100),
+  (sum(reqFailedCmp[2,], na.rm=T)/sum(n)*100)
+)
+names(percentageTotReqFailed) <- webServers
+kable(percentageTotReqFailed)
+cols <- c("red","blue")
+barplot(percentageTotReqFailed, main="Tot Requests failed (%)", col=cols)
+#legend("topleft", webServerNames, bty="n", fills=cols)
+legend("topright", webServerNames, bty="n", fill=cols);
 ```
 
 The second one is total time to complete the requests.

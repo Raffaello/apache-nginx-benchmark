@@ -12,7 +12,7 @@ log <- args[1]
 source("./shared_utils.r")
 
 generateCommand <- function(log, n, c=0) {
-    opt <- paste("-n", n)
+    opt <- paste("-n", n, "-k", "-H 'Accept-Encoding: gzip,deflate'")
     if (c > 0) {
         opt <- paste(opt,"-c", c)
     }
