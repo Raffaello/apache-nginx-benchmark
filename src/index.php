@@ -10,10 +10,7 @@
     for($i = 0; $i < 100; $i++) {
         echo "<p> Run = {$i} --- Results = </p>";
         for($j=0; $j<1000; $j++) {
-            rand();
-            $res = bcsqrt(($j * $i + $j + 1 + $i / $j / $i)+1);
-            rand();
-            $res = bcpow($res, $res);
+            $res = rand();
             echo "<p>{$i}:{$j}= {$res}</p>";
         }
     }

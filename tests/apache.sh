@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-sudo setenforce permissive || exit 1;
+sudo setenforce permissive;
 sudo service nginx stop || exit 1;
 sudo service php71-php-fpm stop || exit 1;
 
