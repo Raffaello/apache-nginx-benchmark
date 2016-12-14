@@ -1,0 +1,120 @@
+---
+title: "Apache httpd Vs Nginx"
+author: "Raffaello Bertini"
+date: "14 December 2016"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+## Apache Httpd Vs Nginx
+
+Using Apache Benchmark utility, `ab`, we will perform a series of request against apache and nginx of the same php page script that is using bcmath and doing some computations. The results are stored from redirecting the stdout to some '*.log' files.
+
+### Parsing the logs
+
+To parse and extract data from the logs file i will use some helper function.
+
+I will use a utility function to generate the file name to be read, it is shared between different scripts. So it will be included from an external file:
+
+```{r init1, include = T}
+source("./shared_utils.r")
+```
+
+What I have just loaded is this function:
+```{r init1b, include = T}
+print (generateLogFileName)
+```
+
+and this are the `-n` and `-c` parameters used with the `ab` program:
+```{r init1c, include=T}
+print(tests)
+```
+
+I use this function to read and parse the data I want directly from the log files, if an error occur during the read operation, it will return an empty equivalent vector of the expected result:
+
+```{r init2, include = T}
+extractDataFromLogTable <- function (logFileNamePrefix, n, c) {
+  fn <- generateLogFileName(n, c, logFileNamePrefix)
+  #print(fn)
+  tryCatch({
+  t <- read.table(fn, sep=":", skip=6, comment.char='', fill=T, stringsAsFactors=FALSE, strip.white = TRUE)
+  
+#1.   webServer <- t$V2[1]
+#2.   docLength <- t$V2[5]
+#3.   concurrencyLevel <- t$V2[6]
+#4.   totTime <- t$V2[7]
+#5.   reqCompleted <- t$V2[8]
+#6.   reqFailed <- t$V2[9]
+#7.   writeErrors <- t$V2[10]
+#8.   reqPerSec <- t$V2[13]
+#9.   timePerReq <- t$V2[14]
+#10.  timePerReq2 <- t$V2[15]
+#11.  transRate <- t$V2[16]
+#12.  total <-t$V2[22]
+  t$V2[c(1,5:10,13:16,22)]
+  }, error = function(err) {
+     r <-rep(0,12)
+     r[c(1,4)] <- ''
+  })
+}
+```
+
+The choice to do not preload all the data and do the processing after, it is due to having an approch to load only the data required (with R is required to explicitly rm variables from the environments).
+
+
+```{r init3, include = T}
+compareTimeResults <- function (n, c) {
+  tn <- extractDataFromLogTable(webServers[1], n, c)
+  th <- extractDataFromLogTable(webServers[2], n, c)
+
+  timeCmp <- c(c(as.numeric(strsplit(tn[4], ' ', T)[[1]][1])), as.numeric(strsplit(th[4], ' ', T)[[1]][1]))
+}
+
+plotTimesCmp <- function() {
+  timesCmp <- apply(tests, 1, function(x) {
+    compareTimeResults(x[1], x[2])
+  })
+  
+  cols <- c('red', 'blue')
+  mainTitle <- "Total Time (s)"
+  ymax <- max(timesCmp, na.rm = T)
+  g_range <- range(0, ymax)
+  print (g_range)
+  plot(timesCmp[1,], type='o', main=mainTitle, col=cols[1], lty=1, pch=1, ylim = g_range, axes = F, ann = F)
+  dt <- dim(tests)
+  axis(1, at=1:dt[1], lab=paste(paste('n',tests$n, sep=''), paste('c',tests$c, sep=''), sep='-'), las=2)
+  axis(2, las=1)
+  box()
+  lines(timesCmp[2,], type='o', col=cols[2], lty=2, pch=2)
+  legend(1,ymax, webServerNames, col=c("red","blue"), cex=0.8, lty=1:2, pch=1:2)
+  print(timesCmp)
+}
+
+```
+
+
+
+
+```{r test 1st plot}
+webServers <- c("nginx", "httpd")
+webServerNames <- c(
+    extractDataFromLogTable(webServers[1],tests$n[1], tests$c[1])[1],
+    extractDataFromLogTable(webServers[2],tests$n[1], tests$c[1])[1]
+)
+
+nginx <- apply(tests, 1, FUN=function(x) { extractDataFromLogTable(webServers[1], x[1], x[2]) })
+httpd <- apply(tests, 1, FUN=function(x) { extractDataFromLogTable(webServers[2], x[1], x[2]) })
+plotTimesCmp()
+```
+
+## Including Plots
+
+You can also embed plots, for example:
+
+```{r pressure, echo=FALSE}
+plot(pressure)
+```
+
+Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
