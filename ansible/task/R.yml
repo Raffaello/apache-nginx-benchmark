@@ -7,5 +7,8 @@
 - name: Rscript update.packages(ask = FALSE, repos = 'http://cran.rstudio.org')
   shell: /usr/bin/Rscript -e "update.packages(ask = FALSE, repos = 'http://cran.rstudio.org')"
 
-- name: Rscript install.packages('knitr', dependencies = TRUE, repos='http://cran.us.r-project.org')
-  shell: /usr/bin/Rscript -e "install.packages('knitr', dependencies = TRUE, repos='http://cran.us.r-project.org')"
+- name: Rscript install.packages('knitr', dependencies = TRUE, repos = 'http://cran.rstudio.org')
+  shell: /usr/bin/Rscript -e "install.packages('knitr', dependencies = TRUE, repos = 'http://cran.rstudio.org')"
+
+- name: Rscript install.packages('ggplot2', repos = 'http://cran.rstudio.org'
+  shell: /usr/bin/Rscript -e "install.packages('ggplot2', repos = 'http://cran.rstudio.org'"
