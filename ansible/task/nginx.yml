@@ -16,9 +16,15 @@
 # @TODO disable all not required module and configuring to have better performance
 - name: configure nginx to use apache group/user (to make easily working php-fpm with same config)
   lineinfile:
-    dest: //etc/nginx/nginx.conf
+    dest: /etc/nginx/nginx.conf
     regexp: 'user nginx;'
     line: 'user apache;'
     state: present
 #    when: nginx.conf_user_test.stdout == "1"
     backrefs: yes
+- name: ingcrese worker connectios
+  lineinfile:
+    dest: /etc/nginx/nginx.conf
+    regexp: 'worker_connections 1024;'
+    line: 'worker_connections 5120;'
+    state: present
