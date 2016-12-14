@@ -78,6 +78,7 @@ print(webServerNames)
 and here the column names, used also for axis x-labeling:
 ```{r colNames, include=T}
 colNames <- paste(paste('n',tests$n, sep=''), paste('c',tests$c, sep=''), sep='-')
+print(colNames)
 ```
 
 
@@ -85,7 +86,7 @@ colNames <- paste(paste('n',tests$n, sep=''), paste('c',tests$c, sep=''), sep='-
 
 The first plot is the error of the responses:
 
-```{r reqFailedFun, include=T}
+```{r reqFailedFun, include=T, echo=F}
 compareRequestFailed <- function(n, c) {
   tn <- extractDataFromLogTable(webServers[1], n, c)
   th <- extractDataFromLogTable(webServers[2], n, c)
@@ -113,7 +114,7 @@ legend("topleft", webServerNames, cex=0.6,  bty="n", fill=cols);
 kable(reqFailedCmp)
 ```
 
-The sencond one is total time to complete the requests.
+The second one is total time to complete the requests.
 
 I am using another helper function to extract and parse data:
 ```{r init3, include = T}
@@ -133,31 +134,41 @@ timesCmp <- apply(tests, 1, function(x) {
 })
 rownames(timesCmp) <- webServers
 colnames(timesCmp) <- colNames
-cols <- c('red', 'blue')
-mainTitle <- "Total Time (s)"
-ymax <- max(timesCmp, na.rm = T)
-g_range <- range(0, ymax)
-print (g_range)
-plot(timesCmp[1,], type='o', main=mainTitle, col=cols[1], lty=1, pch=1, ylim = g_range, axes = F, ann = F)
-dt <- dim(tests)
-axis(1, at=1:dt[1], lab=colNames, las=2)
-axis(2, las=1)
-box()
-lines(timesCmp[2,], type='o', col=cols[2], lty=2, pch=2)
-legend(1,ymax, webServerNames, col=c("red","blue"), cex=0.8, lty=1:2, pch=1:2)
 
-#print(timesCmp)
+plotTimeCmp <- function(timesCmp) {
+  cols <- c('red', 'blue')
+  mainTitle <- "Total Time (s)"
+  ymax <- max(timesCmp, na.rm = T)
+  g_range <- range(0, ymax)
+  #print (g_range)
+  plot(timesCmp[1,], type='o', main=mainTitle, col=cols[1], lty=1, pch=1, ylim = g_range, axes = F, ann = F)
+  dt <- dim(tests)
+  axis(1, at=1:dt[1], lab=colNames, las=2)
+  axis(2, las=1)
+  box()
+  lines(timesCmp[2,], type='o', col=cols[2], lty=2, pch=2)
+  legend(1,ymax, webServerNames, col=c("red","blue"), cex=0.8, lty=1:2, pch=1:2)
+  
+  #print(timesCmp)
+}
+
+plotTimeCmp(timesCmp)
 kable(timesCmp)
-
 ```
 
+### Cleaning time data
 
-## Including Plots
-
-You can also embed plots, for example:
-
-```{r pressure, echo=FALSE}
-plot(pressure)
+Now I am keeping only the data that was completely succesful:
+```{r cleaningTimeCmp, include=T}
+timesCmpFilter <- reqFailedCmp == 0 & !is.na(reqFailedCmp)
+cleanedTimesCmp <- rbind(timesCmp[1, timesCmpFilter[1,]], timesCmp[2, timesCmpFilter[2,]])
+rownames(cleanedTimesCmp) <- webServers
+rm(timesCmpFilter)
 ```
 
-Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
+the resulting plot:
+```{r cleanedTimeCmp, include=T, echo=F}
+kable(cleanedTimesCmp)
+plotTimeCmp(cleanedTimesCmp)
+
+```

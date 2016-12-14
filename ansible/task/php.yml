@@ -21,18 +21,18 @@
 - name: installing php71-php-opcache
   yum: name=php71-php-opcache state=latest
 
-- name: php-fpm max-children setting
-  lineinfile:
-    dest: /etc/opt/remi/php71/php-fpm.d/www.conf
-    regexp: '^pm.max_children = 50'
-    line: 'pm.max_children = 8'
-    state: present
-- name: php-fpm pm=static
-  lineinfile:
-    dest:
-    regexp: '^pm = dynamic'
-    line: 'pm = static'
-    state: present
+#- name: php-fpm max-children setting
+#  lineinfile:
+#    dest: /etc/opt/remi/php71/php-fpm.d/www.conf
+#    regexp: '^pm.max_children = 50'
+#    line: 'pm.max_children = 8'
+#    state: present
+#- name: php-fpm pm=static
+#  lineinfile:
+#    dest:
+#    regexp: '^pm = dynamic'
+#    line: 'pm = static'
+#    state: present
 
 - name: clone php-fpm pool www.conf (httpd 2.4.6 does not support unix socket)
   shell: cp /etc/opt/remi/php71/php-fpm.d/www.conf /etc/opt/remi/php71/php-fpm.d/www.conf.httpd
