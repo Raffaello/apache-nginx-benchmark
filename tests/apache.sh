@@ -12,4 +12,4 @@ sudo service httpd start || exit 1;
 
 #sudo chmod 777 /vagrant/src/index.*
 #sudo ./abtests.sh
-./test_report.r httpd
+sudo ./test_report.r httpd abtest.dev/index.php

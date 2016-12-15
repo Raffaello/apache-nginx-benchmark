@@ -12,4 +12,4 @@ sudo service nginx start || exit 1;
 
 #sudo chmod 777 /vagrant/src/index.*
 #sudo ./abtests.sh
-./test_report.r nginx
+sudo ./test_report.r nginx abtest.dev/index.php
