@@ -1,8 +1,8 @@
 ---
 - name: basic tests nginx
-  shell: cd /~/apache-nginx/benchmark/tests; ./nginx.sh
+  shell: cd /~/apache-nginx-benchmark/tests; ./nginx.sh
 - name: basic tests httpd
-  shell: cd /vagrant/tests; ./apache.sh
+  shell: cd /~/apache-nginx-benchmark/tests; ./apache.sh
 
 #- name: generate html report
 #  shell: cd /vagrant/tests; ./apache.sh

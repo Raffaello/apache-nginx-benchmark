@@ -9,6 +9,8 @@ if (length(args) != 2) {
 
 log <- args[1]
 url <- args[2]
+name2 <- strsplit(url, '/')[[1]][2]
+log <- paste(log,'-',name2, sep='')
 
 source("./shared_utils.r")
 
