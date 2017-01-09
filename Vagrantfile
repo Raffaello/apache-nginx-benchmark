@@ -10,9 +10,6 @@ Vagrant.configure("2") do |config|
     config.vbguest.auto_update = false
     config.vbguest.no_remote   = true
   end
-  #config.vbguest.no_install  = true if defined? config.vbguest
-  #config.vbguest.auto_update = false if defined? config.vbguest
-  #config.vbguest.no_remote   = true if defined? config.vbguest
 
   config.vm.provider "virtualbox" do |vb|
      vb.memory = "1024"
