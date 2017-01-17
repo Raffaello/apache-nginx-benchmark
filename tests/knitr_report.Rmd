@@ -92,7 +92,10 @@ The first plot is the error of the responses:
 
 ```{r reqFailedFun, include=T, echo=F}
 compareRequestFailed <- function(n, c) {
-  unlist(lapply(webServers, function(x){ as.numeric(extractDataFromLogTable(x,n,c)[6])}))
+  unlist(lapply(webServers, function(x){ 
+    tmp <- as.numeric(extractDataFromLogTable(x,n,c)[6])
+    ifelse(is.na(tmp), n, tmp)
+  }))
 }
 ```
 
@@ -134,10 +137,17 @@ The second one is total time to complete the requests.
 I am using another helper function to extract and parse data:
 ```{r init3, include = T}
 compareTimeResults <- function (n, c, webServers) {
-  tn <- extractDataFromLogTable(webServers[1], n, c)
-  th <- extractDataFromLogTable(webServers[2], n, c)
+  #tn <- extractDataFromLogTable(webServers[1], n, c)
+  #th <- extractDataFromLogTable(webServers[2], n, c)
 
-  timeCmp <- c(c(as.numeric(strsplit(tn[4], ' ', T)[[1]][1])), as.numeric(strsplit(th[4], ' ', T)[[1]][1]))
+  #timeCmp <- c(c(as.numeric(strsplit(tn[4], ' ', T)[[1]][1])), as.numeric(strsplit(th[4], ' ', T)[[1]][1]))
+  timeCmp <- unlist(lapply(webServers, function(x){ 
+    tmp <- extractDataFromLogTable(x,n,c)[4]
+    ifelse(is.na(tmp), 0, tmp)
+  }))
+  
+  unlist(lapply(timeCmp, function(x) { as.numeric(strsplit(x, ' ', T)[[1]][1])}))
+  
 }
 ```
 
@@ -150,25 +160,36 @@ timesCmp <- apply(tests, 1, function(x) {
 rownames(timesCmp) <- webServers
 colnames(timesCmp) <- colNames
 
-plotTimeCmp <- function(timesCmp) {
+plotTimeCmp <- function(timesCmp, webServerNames) {
   #cols <- c('red', 'blue')
   mainTitle <- "Total Time (s)"
   ymax <- max(timesCmp, na.rm = T)
+  #n <- length(timesCmp)
+  #ymax <- sort(timesCmp,partial=n-1)[n-1]
   g_range <- range(0, ymax)
-  #print (g_range)
+  print (g_range)
   plot(timesCmp[1,], type='o', main=mainTitle, col=cols[1], lty=1, pch=1, ylim = g_range, axes = F, ann = F)
   dt <- dim(tests)
   axis(1, at=1:dt[1], lab=colNames, las=2)
   axis(2, las=1)
   box()
-  lines(timesCmp[2,], type='o', col=cols[2], lty=2, pch=2)
-  legend(1,ymax, webServerNames, col=c("red","blue"), cex=0.8, lty=1:2, pch=1:2)
-  
-  #print(timesCmp)
+  for (i in seq(2,dim(timesCmp)[1])) {
+    value <- 2-i%%2
+    lines(timesCmp[i,], type='o', col=cols[i], lty=value, pch=value)
+  }
+  legend(1,ymax, webServerNames, col=cols, cex=0.8, lty=1:2, pch=1:2)
 }
 
-plotTimeCmp(timesCmp)
+plotTimeCmp(timesCmp, webServerNames)
 kable(timesCmp)
+```
+
+now splitting the plot for the 2 different tests:
+```{r timeCmpPlotSplitted, include=T, echo=F}
+plotTimeCmp(timesCmp[1:2,], webServerNames[1:2])
+kable(timesCmp[1:2,])
+plotTimeCmp(timesCmp[3:4,], webServerNames[3:4])
+kable(timesCmp[3:4,])
 ```
 
 ### Cleaning time data
