@@ -71,10 +71,6 @@ here we are extracting the webservers used:
 webServers_ <- c("nginx", "httpd")
 webTests <- c("index.php", "bcmath.php")
 webServers <- apply(expand.grid(webServers_, webTests), 1, function(x) {paste(x[1],x[2],sep="-")})
-#webServerNames <- c(
-#    extractDataFromLogTable(webServers[1],tests$n[1], tests$c[1])[1],
-#    extractDataFromLogTable(webServers[2],tests$n[1], tests$c[1])[1]
-#)
 webServerNames <- webServers
 print(webServerNames)
 ```
@@ -94,7 +90,7 @@ The first plot is the error of the responses:
 compareRequestFailed <- function(n, c) {
   unlist(lapply(webServers, function(x){ 
     tmp <- as.numeric(extractDataFromLogTable(x,n,c)[6])
-    ifelse(is.na(tmp), n, tmp)
+    ifelse(is.na(tmp), 100, tmp/n)
   }))
 }
 ```
@@ -109,7 +105,7 @@ colnames(reqFailedCmp) <- colNames
 library(RColorBrewer)
 cols<-brewer.pal(n=4,name="Set1")
 #cols <- c("red", "blue")
-mainTitle <- "Request Failed"
+mainTitle <- "Request Failed (%)"
 ymax <- max(reqFailedCmp, na.rm = T)
 reqFailedCmpCleaned <- reqFailedCmp
 reqFailedCmpCleaned[is.na(reqFailedCmp)] <- ymax
@@ -137,23 +133,16 @@ The second one is total time to complete the requests.
 I am using another helper function to extract and parse data:
 ```{r init3, include = T}
 compareTimeResults <- function (n, c, webServers) {
-  #tn <- extractDataFromLogTable(webServers[1], n, c)
-  #th <- extractDataFromLogTable(webServers[2], n, c)
-
-  #timeCmp <- c(c(as.numeric(strsplit(tn[4], ' ', T)[[1]][1])), as.numeric(strsplit(th[4], ' ', T)[[1]][1]))
   timeCmp <- unlist(lapply(webServers, function(x){ 
     tmp <- extractDataFromLogTable(x,n,c)[4]
     ifelse(is.na(tmp), 0, tmp)
   }))
-  
   unlist(lapply(timeCmp, function(x) { as.numeric(strsplit(x, ' ', T)[[1]][1])}))
-  
 }
 ```
 
 here the plot:
 ```{r timeCmpPlot, include=T, echo=F}
-
 timesCmp <- apply(tests, 1, function(x) {
   compareTimeResults(x[1], x[2], webServers)
 })
@@ -161,11 +150,8 @@ rownames(timesCmp) <- webServers
 colnames(timesCmp) <- colNames
 
 plotTimeCmp <- function(timesCmp, webServerNames) {
-  #cols <- c('red', 'blue')
   mainTitle <- "Total Time (s)"
   ymax <- max(timesCmp, na.rm = T)
-  #n <- length(timesCmp)
-  #ymax <- sort(timesCmp,partial=n-1)[n-1]
   g_range <- range(0, ymax)
   print (g_range)
   plot(timesCmp[1,], type='o', main=mainTitle, col=cols[1], lty=1, pch=1, ylim = g_range, axes = F, ann = F)
@@ -190,21 +176,4 @@ plotTimeCmp(timesCmp[1:2,], webServerNames[1:2])
 kable(timesCmp[1:2,])
 plotTimeCmp(timesCmp[3:4,], webServerNames[3:4])
 kable(timesCmp[3:4,])
-```
-
-### Cleaning time data
-
-Now I am keeping only the data that was completely succesful:
-```{r cleaningTimeCmp, include=T}
-timesCmpFilter <- reqFailedCmp == 0 & !is.na(reqFailedCmp)
-cleanedTimesCmp <- rbind(timesCmp[1, timesCmpFilter[1,]], timesCmp[2, timesCmpFilter[2,]])
-rownames(cleanedTimesCmp) <- webServers
-rm(timesCmpFilter)
-```
-
-the resulting plot:
-```{r cleanedTimeCmp, include=T, echo=F}
-kable(cleanedTimesCmp)
-plotTimeCmp(cleanedTimesCmp)
-
 ```
