@@ -26,5 +26,5 @@
   lineinfile:
     dest: /etc/nginx/nginx.conf
     regexp: 'worker_connections 1024;'
-    line: 'worker_connections 256;'
+    line: 'worker_connections 128;'
     state: present
