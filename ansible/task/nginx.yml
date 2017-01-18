@@ -22,7 +22,7 @@
     state: present
 #    when: nginx.conf_user_test.stdout == "1"
     backrefs: yes
-- name: ingcrese worker connectios
+- name: increse worker connections
   lineinfile:
     dest: /etc/nginx/nginx.conf
     regexp: 'worker_connections 1024;'
