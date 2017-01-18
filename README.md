@@ -25,9 +25,9 @@ One penalty on Apache is the CentOS version is not able to use Unix Sockets.
 
 - using module `mpm_event` with params: 
     - `StartServers          1`
-    - `MaxRequestWorkers     2560`
+    - `MaxRequestWorkers     1280`
 - using FastCGI with TCP port (due to version not supporting using socket, performance penalty)
-- disable the other not required modules (`cgi`, `lua`) 
+- disable others not required modules (`cgi`, `lua`) 
 
 
 #### NGINX
@@ -44,5 +44,11 @@ One penalty on Apache is the CentOS version is not able to use Unix Sockets.
 - `./nginx.sh; ./apache.sh`
 - `./generate_report.r`
 
-The VM it might crash with Apache and it will not be able to finish the tests, still need to fix a minor configuration for load testing. 
+The VM it might crash with Apache and it will not be able to finish the tests, still need to fix a minor configuration for load testing.
+ 
+## link to report
+
+
+ 
+ 
 
