@@ -1,4 +1,4 @@
 #!/usr/bin/Rscript
 
-libary(knitr);
+library(knitr);
 knit('knitr_report.Rmd');
