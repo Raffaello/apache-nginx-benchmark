@@ -46,14 +46,14 @@ One penalty on Apache is the CentOS version is not able to use Unix Sockets.
 
 The VM it might crash with Apache and it will not be able to finish the tests, still need to fix a minor configuration for load testing.
  
-## link to report
+## link to reports
 
-The report are missing some extra information that might be useful like memory consumption, CPU clocks, cores, etc...
+The reports are missing some extra information that might be useful like memory consumption, CPU clocks, cores, etc...
 
 It helps to identify better the results. Even the OS is important, because Apache Web Server in CentOS was slightly penalized for UNIX socket not available.
 here the report:
 
-[CentOS7](reports/CentOS7/knitr_report.md)
+- [CentOS7](reports/CentOS7/knitr_report.md)
  
  
 
