@@ -53,7 +53,7 @@ The report are missing some extra information that might be useful like memory c
 It helps to identify better the results. Even the OS is important, because Apache Web Server in CentOS was slightly penalized for UNIX socket not available.
 here the report:
 
-[CentOS7](reports/CentOS7/knit_report.md)
+[CentOS7](reports/CentOS7/knitr_report.md)
  
  
 
