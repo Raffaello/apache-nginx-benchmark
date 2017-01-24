@@ -48,7 +48,12 @@ The VM it might crash with Apache and it will not be able to finish the tests, s
  
 ## link to report
 
+The report are missing some extra information that might be useful like memory consumption, CPU clocks, cores, etc...
 
+It helps to identify better the results. Even the OS is important, because Apache Web Server in CentOS was slightly penalized for UNIX socket not available.
+here the report:
+
+[CentOS7](reports/CentOS7/knit_report.md)
  
  
 
